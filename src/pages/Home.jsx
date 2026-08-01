@@ -247,7 +247,7 @@ export default function Home() {
             INVOICE<span className="text-blue-600">GO.</span>
           </h3>
           <p className="font-mono text-sm text-slate-500 font-medium">
-            © {new Date().getFullYear()} InvoiceGo System.
+            © {new Date().getFullYear()} InvoiceGo by M.Ridho Adha.
           </p>
         </div>
       </footer>
