@@ -1,127 +1,42 @@
 # InvoiceGo
+InvoiceGo adalah website pembuat invoice digital yang membantu freelancer, UMKM, dan pemilik bisnis membuat tagihan profesional dengan cepat. Pengguna cukup mengisi informasi pengirim, penerima, layanan atau produk, serta detail pembayaran. Invoice akan dihitung dan ditampilkan dalam preview secara real-time sebelum diunduh sebagai dokumen PDF berformat A4.
 
-InvoiceGo adalah aplikasi web sederhana berbasis React.js yang digunakan untuk membuat invoice profesional dan mengunduhnya dalam format PDF secara langsung.
-
-## ✨ Fitur
-
-- Membuat invoice dengan mudah
-- Input data perusahaan
-- Input data pelanggan
-- Menambahkan item produk/jasa
-- Mengatur quantity dan harga
-- Perhitungan subtotal otomatis
-- Perhitungan pajak
-- Perhitungan diskon
-- Perhitungan total pembayaran
-- Menambahkan catatan invoice
-- Export invoice ke PDF
-- Responsive design
-
-## 🛠️ Teknologi
-
-- React.js
+## Fitur Utama
+- Membuat invoice dengan nomor invoice dan tanggal terbit yang dapat disesuaikan.
+- Mendukung bahasa Indonesia dan Inggris.
+- Mendukung mata uang IDR, USD, dan EUR.
+- Menambahkan beberapa item layanan atau produk secara dinamis.
+- Menghitung subtotal, pajak, diskon, dan total secara otomatis.
+- Menyertakan informasi rekening bank, alamat, dan catatan tambahan.
+- Menampilkan preview invoice secara real-time.
+- Mengunduh invoice sebagai file PDF berformat A4.
+## Teknologi
+- React
 - Vite
 - Tailwind CSS
+- React Router
+- jsPDF dan html2canvas
 - React Icons
-- html2canvas
-- jsPDF
 
-## 📁 Struktur Folder
-
-```bash
-src/
-│
-├── components/
-│   ├── Navbar.jsx
-│   ├── Footer.jsx
-│   └── InvoiceForm.jsx
-│   └── InvoicePreview.jsx   
-│
-├── pages/
-│   ├── Home.jsx
-│   └── Invoice.jsx
-│
-├── utils/
-│   └── generatePDF.js
-│
-├── App.jsx
-├── main.jsx
-└── index.css
-└── App.css
-```
-
-## 🚀 Instalasi
-
-Clone repository:
-
-```bash
-git clone https://github.com/username/invoicego.git
-```
-
-Masuk ke folder project:
-
-```bash
-cd invoicego
-```
-
-Install dependency:
+## Menjalankan Project
+Pastikan Node.js sudah terpasang, kemudian jalankan perintah berikut:
 
 ```bash
 npm install
-```
-
-Jalankan project:
-
-```bash
 npm run dev
 ```
 
-Buka browser:
+Buka alamat lokal yang ditampilkan Vite di terminal, biasanya `http://localhost:5173`.
 
-```text
-http://localhost:5173
-```
-
-## 📦 Dependency
-
-Install semua package yang dibutuhkan:
+## Perintah Lain
 
 ```bash
-npm install react-router-dom
-npm install react-icons
-npm install jspdf
-npm install html2canvas
+# Menjalankan pemeriksaan lint
+npm run lint
+
+# Membuat build untuk production
+npm run build
+
+# Menjalankan preview dari hasil build
+npm run preview
 ```
-
-## 🎯 Cara Menggunakan
-
-1. Buka halaman InvoiceGo
-2. Klik tombol **Buat Invoice**
-3. Isi data perusahaan
-4. Isi data pelanggan
-5. Tambahkan item produk atau jasa
-6. Atur quantity dan harga
-7. Tambahkan pajak atau diskon jika diperlukan
-8. Klik **Render & Download PDF**
-9. Invoice akan otomatis terunduh dalam format PDF
-
-## 🔮 Pengembangan Selanjutnya
-
-- Preview invoice realtime
-- Dark mode
-- Template invoice lebih banyak
-- Simpan invoice ke Local Storage
-- Export ke PNG
-- Generate nomor invoice otomatis
-- Riwayat invoice
-- Dukungan logo perusahaan
-
-## 👨‍💻 Author
-
-M. Ridho Adha
-
-Sistem Informasi - Institut Teknologi Rokan Hilir
-
----
-
-⭐ Jika project ini bermanfaat, jangan lupa berikan star pada repository GitHub.
