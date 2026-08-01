@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import InvoiceForm from "../components/InvoiceForm";
@@ -6,9 +6,16 @@ import InvoicePreview from "../components/InvoicePreview";
 
 export default function Invoice() {
   // Semua data dipusatkan di komponen Induk
-  const [invoiceData, setInvoiceData] = useState({
+  const [invoiceData, setInvoiceData] = useState(() => ({
+    language: "Indonesia",
+    currency: "IDR",
     company: "",
+    senderAddress: "",
     customer: "",
+    customerAddress: "",
+    bankName: "",
+    accountHolder: "",
+    accountNumber: "",
     invoiceNo: `INV-${Date.now()}`,
     date: "",
     dueDate: "",
@@ -18,7 +25,24 @@ export default function Invoice() {
     tax: 0,
     discount: 0,
     notes: "",
-  });
+  }));
+  const previewContainerRef = useRef(null);
+  const [previewScale, setPreviewScale] = useState(1);
+
+  useEffect(() => {
+    const container = previewContainerRef.current;
+    if (!container) return undefined;
+
+    const updatePreviewScale = () => {
+      setPreviewScale(Math.min(1, container.clientWidth / 794));
+    };
+
+    updatePreviewScale();
+    const observer = new ResizeObserver(updatePreviewScale);
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] p-4 lg:p-8 font-sans">
@@ -45,8 +69,15 @@ export default function Invoice() {
           </div>
 
           {/* Kolom Kanan: Preview Real-time (Makan 6 Kolom) */}
-          <div className="lg:col-span-6 sticky top-8 overflow-x-auto">
-            <div className="min-w-[794px] lg:min-w-0 origin-top-left lg:scale-[0.85] xl:scale-100 transition-transform">
+          <div
+            ref={previewContainerRef}
+            className="lg:col-span-6 lg:sticky lg:top-8 w-full overflow-hidden"
+            style={{ height: `${1123 * previewScale}px` }}
+          >
+            <div
+              className="w-[794px] origin-top-left transition-transform duration-200"
+              style={{ transform: `scale(${previewScale})` }}
+            >
               <InvoicePreview invoiceData={invoiceData} />
             </div>
           </div>
