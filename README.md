@@ -35,6 +35,7 @@ src/
 │   ├── Navbar.jsx
 │   ├── Footer.jsx
 │   └── InvoiceForm.jsx
+│   └── InvoicePreview.jsx   
 │
 ├── pages/
 │   ├── Home.jsx
@@ -46,6 +47,7 @@ src/
 ├── App.jsx
 ├── main.jsx
 └── index.css
+└── App.css
 ```
 
 ## 🚀 Instalasi
@@ -102,22 +104,6 @@ npm install html2canvas
 7. Tambahkan pajak atau diskon jika diperlukan
 8. Klik **Render & Download PDF**
 9. Invoice akan otomatis terunduh dalam format PDF
-
-## 📸 Screenshot
-
-Tambahkan screenshot aplikasi di folder:
-
-```text
-public/screenshots/
-```
-
-Lalu tampilkan:
-
-```md
-![Home](public/screenshots/home.png)
-
-![Invoice](public/screenshots/invoice.png)
-```
 
 ## 🔮 Pengembangan Selanjutnya
 
