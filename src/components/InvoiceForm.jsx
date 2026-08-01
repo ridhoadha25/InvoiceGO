@@ -3,7 +3,14 @@ import { FaPlus, FaTrash, FaFileDownload, FaCalculator } from "react-icons/fa";
 
 export default function InvoiceForm({ invoiceData, setInvoiceData }) {
   // Helper Format Rupiah
-  const formatRupiah = (value) => new Intl.NumberFormat("id-ID").format(value);
+  const formatCurrency = (value) => {
+    const currencyLocale = invoiceData.currency === "USD" ? "en-US" : "id-ID";
+    return new Intl.NumberFormat(currencyLocale, {
+      style: "currency",
+      currency: invoiceData.currency,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   // Helper untuk update data utama ke Parent (Invoice.jsx)
   const handleChange = (field, value) => {
@@ -58,10 +65,34 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
         </div>
       </div>
 
-      {/* Data Invoice */}
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
+      {/* Informasi Umum */}
+      <div className="mb-8">
+        <h3 className="text-lg font-bold uppercase text-slate-900 border-b-2 border-slate-200 pb-2 mb-4">Informasi Umum</h3>
+        <div className="grid md:grid-cols-3 gap-4 mb-4">
+          <div>
+            <label className={labelClass}>Bahasa Invoice</label>
+            <select className={inputClass} value={invoiceData.language} onChange={(e) => handleChange("language", e.target.value)}>
+              <option>Indonesia</option>
+              <option>English</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Mata Uang</label>
+            <select className={inputClass} value={invoiceData.currency} onChange={(e) => handleChange("currency", e.target.value)}>
+              <option value="IDR">IDR (Rp)</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Nomor Invoice</label>
+            <input type="text" className={`${inputClass} font-mono`} value={invoiceData.invoiceNo} onChange={(e) => handleChange("invoiceNo", e.target.value)} />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Perusahaan Anda</label>
+          <label className={labelClass}>Nama Pengirim</label>
           <input
             type="text"
             className={inputClass}
@@ -70,31 +101,39 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
             onChange={(e) => handleChange("company", e.target.value)}
           />
         </div>
-
         <div>
-          <label className={labelClass}>Klien / Pelanggan</label>
+          <label className={labelClass}>Alamat Pengirim</label>
           <input
             type="text"
             className={inputClass}
-            placeholder="Budi Santoso"
-            value={invoiceData.customer}
-            onChange={(e) => handleChange("customer", e.target.value)}
+            placeholder="Alamat perusahaan"
+            value={invoiceData.senderAddress}
+            onChange={(e) => handleChange("senderAddress", e.target.value)}
           />
         </div>
-
         <div>
-          <label className={labelClass}>No Invoice</label>
-          <input
-            type="text"
-            className={`${inputClass} font-mono`}
-            value={invoiceData.invoiceNo}
-            onChange={(e) => handleChange("invoiceNo", e.target.value)}
-          />
+          <label className={labelClass}>Nama Penerima</label>
+          <input type="text" className={inputClass} placeholder="Nama klien" value={invoiceData.customer} onChange={(e) => handleChange("customer", e.target.value)} />
         </div>
-
+        <div>
+          <label className={labelClass}>Alamat Penerima</label>
+          <input type="text" className={inputClass} placeholder="Alamat klien" value={invoiceData.customerAddress} onChange={(e) => handleChange("customerAddress", e.target.value)} />
+        </div>
+        <div>
+          <label className={labelClass}>Nama Bank</label>
+          <input type="text" className={inputClass} placeholder="BCA, Mandiri, atau lainnya" value={invoiceData.bankName} onChange={(e) => handleChange("bankName", e.target.value)} />
+        </div>
+        <div>
+          <label className={labelClass}>Pemilik Rekening</label>
+          <input type="text" className={inputClass} placeholder="Nama pemilik rekening" value={invoiceData.accountHolder} onChange={(e) => handleChange("accountHolder", e.target.value)} />
+        </div>
+        <div>
+          <label className={labelClass}>Nomor Rekening</label>
+          <input type="text" className={`${inputClass} font-mono`} placeholder="1234567890" value={invoiceData.accountNumber} onChange={(e) => handleChange("accountNumber", e.target.value)} />
+        </div>
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className={labelClass}>Tanggal</label>
+            <label className={labelClass}>Tanggal Terbit</label>
             <input
               type="date"
               className={inputClass}
@@ -103,7 +142,7 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
             />
           </div>
           <div>
-            <label className={labelClass}>Tempo</label>
+            <label className={labelClass}>Tanggal Jatuh Tempo</label>
             <input
               type="date"
               className={inputClass}
@@ -111,6 +150,7 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
               onChange={(e) => handleChange("dueDate", e.target.value)}
             />
           </div>
+        </div>
         </div>
       </div>
 
@@ -146,7 +186,7 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
               </div>
 
               <div className="w-full md:w-40 relative">
-                <span className="absolute left-0 top-2 font-mono text-slate-500">Rp</span>
+                <span className="absolute left-0 top-2 font-mono text-slate-500">{invoiceData.currency === "IDR" ? "Rp" : invoiceData.currency}</span>
                 <input
                   type="number"
                   placeholder="0"
@@ -216,7 +256,7 @@ export default function InvoiceForm({ invoiceData, setInvoiceData }) {
               <span className="text-slate-600 font-bold">TOTAL KESELURUHAN</span>
             </div>
             <div className="text-2xl font-black text-blue-600">
-              Rp {formatRupiah(total)}
+              {formatCurrency(total)}
             </div>
           </div>
         </div>
