@@ -1,5 +1,12 @@
 export default function InvoicePreview({ invoiceData }) {
-  const formatRupiah = (value) => new Intl.NumberFormat("id-ID").format(value);
+  const formatCurrency = (value) => {
+    const currencyLocale = invoiceData.currency === "USD" ? "en-US" : "id-ID";
+    return new Intl.NumberFormat(currencyLocale, {
+      style: "currency",
+      currency: invoiceData.currency,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   // Kalkulasi ulang di sini berdasarkan data props
   const subtotal = invoiceData.items.reduce(
@@ -39,10 +46,12 @@ export default function InvoicePreview({ invoiceData }) {
         <div>
           <p className="text-sm font-bold mb-1 uppercase" style={{ color: "#6b7280" }}>Diterbitkan Oleh:</p>
           <p className="font-bold text-xl" style={{ color: "#000000" }}>{invoiceData.company || "Nama Perusahaan"}</p>
+          <p className="text-sm" style={{ color: "#6b7280" }}>{invoiceData.senderAddress || "Alamat perusahaan"}</p>
         </div>
         <div className="text-right">
           <p className="text-sm font-bold mb-1 uppercase" style={{ color: "#6b7280" }}>Ditagihkan Kepada:</p>
           <p className="font-bold text-xl" style={{ color: "#000000" }}>{invoiceData.customer || "Nama Pelanggan"}</p>
+          <p className="text-sm" style={{ color: "#6b7280" }}>{invoiceData.customerAddress || "Alamat pelanggan"}</p>
         </div>
       </div>
 
@@ -79,9 +88,9 @@ export default function InvoicePreview({ invoiceData }) {
             <tr key={index} style={{ color: "#000000" }}>
               <td className="p-4" style={{ border: "1px solid #000000" }}>{item.description || "-"}</td>
               <td className="p-4 text-center font-mono" style={{ border: "1px solid #000000" }}>{item.qty}</td>
-              <td className="p-4 text-right font-mono" style={{ border: "1px solid #000000" }}>Rp {formatRupiah(item.price)}</td>
+              <td className="p-4 text-right font-mono" style={{ border: "1px solid #000000" }}>{formatCurrency(item.price)}</td>
               <td className="p-4 text-right font-bold font-mono" style={{ border: "1px solid #000000" }}>
-                Rp {formatRupiah(item.qty * item.price)}
+                {formatCurrency(item.qty * item.price)}
               </td>
             </tr>
           ))}
@@ -93,22 +102,22 @@ export default function InvoicePreview({ invoiceData }) {
         <div className="w-7/12">
           <div className="flex justify-between p-2 font-mono text-lg" style={{ color: "#000000" }}>
             <span>Subtotal</span>
-            <span>Rp {formatRupiah(subtotal)}</span>
+            <span>{formatCurrency(subtotal)}</span>
           </div>
           <div className="flex justify-between p-2 font-mono text-lg" style={{ color: "#000000" }}>
             <span>Pajak ({invoiceData.tax}%)</span>
-            <span>Rp {formatRupiah(taxAmount)}</span>
+            <span>{formatCurrency(taxAmount)}</span>
           </div>
           <div className="flex justify-between p-2 font-mono text-lg" style={{ color: "#dc2626" }}>
             <span>Diskon</span>
-            <span>- Rp {formatRupiah(Number(invoiceData.discount))}</span>
+            <span>- {formatCurrency(Number(invoiceData.discount))}</span>
           </div>
           <div 
             className="flex justify-between p-4 mt-4"
             style={{ backgroundColor: "#f3f4f6", borderTop: "3px solid #000000", borderBottom: "3px solid #000000", color: "#000000" }}
           >
             <span className="font-black text-xl">TOTAL TAGIHAN</span>
-            <span className="font-black text-2xl text-blue-600">Rp {formatRupiah(total)}</span>
+            <span className="font-black text-2xl text-blue-600">{formatCurrency(total)}</span>
           </div>
         </div>
       </div>
@@ -118,6 +127,14 @@ export default function InvoicePreview({ invoiceData }) {
         <div className="mt-12 pt-6" style={{ borderTop: "2px solid #d1d5db" }}>
           <p className="text-sm font-bold mb-2 uppercase" style={{ color: "#6b7280" }}>Catatan Tambahan:</p>
           <p className="text-base whitespace-pre-wrap" style={{ color: "#000000" }}>{invoiceData.notes}</p>
+        </div>
+      )}
+
+      {(invoiceData.bankName || invoiceData.accountNumber || invoiceData.accountHolder) && (
+        <div className="mt-8 pt-6" style={{ borderTop: "2px solid #d1d5db" }}>
+          <p className="text-sm font-bold uppercase" style={{ color: "#6b7280" }}>Pembayaran ke:</p>
+          <p className="font-bold" style={{ color: "#000000" }}>{invoiceData.bankName || "Bank"}</p>
+          <p className="text-sm" style={{ color: "#000000" }}>{invoiceData.accountHolder || "Pemilik rekening"} {invoiceData.accountNumber ? `- ${invoiceData.accountNumber}` : ""}</p>
         </div>
       )}
     </div>
