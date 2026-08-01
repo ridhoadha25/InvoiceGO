@@ -4,3 +4,137 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
 }
+
+.invoice-hero-art {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background-color: #eff6ff;
+  background-image: linear-gradient(135deg, #dbeafe 25%, transparent 25%), linear-gradient(315deg, #dbeafe 25%, transparent 25%);
+  background-position: 0 0, 16px 16px;
+  background-size: 32px 32px;
+}
+
+.invoice-sheet {
+  position: relative;
+  width: min(70%, 360px);
+  aspect-ratio: 0.76;
+  padding: 28px;
+  color: #0f172a;
+  background-color: #ffffff;
+  border: 3px solid #0f172a;
+  box-shadow: 12px 12px 0 #2563eb;
+  animation: invoice-float 4s ease-in-out infinite;
+}
+
+.invoice-sheet-header,
+.invoice-client-line,
+.invoice-total-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.invoice-sheet-header {
+  font-size: 16px;
+}
+
+.invoice-receipt-icon {
+  color: #2563eb;
+  font-size: 28px;
+}
+
+.invoice-rule {
+  height: 3px;
+  margin: 24px 0;
+  background-color: #0f172a;
+}
+
+.invoice-rule-wide {
+  width: 100%;
+}
+
+.invoice-client-line strong,
+.invoice-total-line strong {
+  color: #2563eb;
+}
+
+.invoice-lines {
+  display: grid;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.invoice-lines i {
+  display: block;
+  width: 100%;
+  height: 10px;
+  background-color: #cbd5e1;
+  transform-origin: left;
+  animation: invoice-line-pulse 2.4s ease-in-out infinite;
+}
+
+.invoice-lines i:nth-child(2) {
+  width: 78%;
+  animation-delay: 0.2s;
+}
+
+.invoice-lines i:nth-child(3) {
+  width: 88%;
+  animation-delay: 0.4s;
+}
+
+.invoice-lines i:nth-child(4) {
+  width: 64%;
+  animation-delay: 0.6s;
+}
+
+.invoice-total-line {
+  padding-top: 18px;
+  border-top: 2px solid #0f172a;
+  font-size: 15px;
+}
+
+.invoice-stamp {
+  position: absolute;
+  right: 22px;
+  bottom: 24px;
+  padding: 6px 10px;
+  color: #15803d;
+  border: 2px solid #15803d;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  transform: rotate(-8deg);
+  animation: invoice-stamp-pop 3s ease-in-out infinite;
+}
+
+@keyframes invoice-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes invoice-line-pulse {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.92); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes invoice-stamp-pop {
+  0%, 100% { opacity: 0.55; transform: rotate(-8deg) scale(0.96); }
+  50% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invoice-sheet,
+  .invoice-lines i,
+  .invoice-stamp {
+    animation: none;
+  }
+}
