@@ -1,42 +1,51 @@
 # InvoiceGo
-InvoiceGo adalah website pembuat invoice digital yang membantu freelancer, UMKM, dan pemilik bisnis membuat tagihan profesional dengan cepat. Pengguna cukup mengisi informasi pengirim, penerima, layanan atau produk, serta detail pembayaran. Invoice akan dihitung dan ditampilkan dalam preview secara real-time sebelum diunduh sebagai dokumen PDF berformat A4.
 
-## Fitur Utama
-- Membuat invoice dengan nomor invoice dan tanggal terbit yang dapat disesuaikan.
-- Mendukung bahasa Indonesia dan Inggris.
-- Mendukung mata uang IDR, USD, dan EUR.
-- Menambahkan beberapa item layanan atau produk secara dinamis.
-- Menghitung subtotal, pajak, diskon, dan total secara otomatis.
-- Menyertakan informasi rekening bank, alamat, dan catatan tambahan.
-- Menampilkan preview invoice secara real-time.
-- Mengunduh invoice sebagai file PDF berformat A4.
-## Teknologi
+InvoiceGo is a digital invoice generator designed to help freelancers, small businesses (SMEs), and business owners create professional invoices quickly and efficiently. Users can simply enter sender and customer information, add products or services, and provide payment details. The invoice is automatically calculated and displayed in a real-time preview before being downloaded as an A4 PDF document.
+
+## Features
+
+- Create invoices with customizable invoice numbers and issue dates.
+- Support for both Indonesian and English languages.
+- Support for IDR, USD, and EUR currencies.
+- Add multiple products or service items dynamically.
+- Automatically calculate subtotal, tax, discount, and grand total.
+- Include bank account details, business address, and additional notes.
+- Display a real-time invoice preview.
+- Export invoices as A4 PDF documents.
+
+## Technologies
+
 - React
 - Vite
 - Tailwind CSS
 - React Router
-- jsPDF dan html2canvas
+- jsPDF & html2canvas
 - React Icons
 
-## Menjalankan Project
-Pastikan Node.js sudah terpasang, kemudian jalankan perintah berikut:
+## Getting Started
+
+Make sure **Node.js** is installed, then run the following commands:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka alamat lokal yang ditampilkan Vite di terminal, biasanya `http://localhost:5173`.
+Open the local development URL displayed in the Vite terminal, usually:
 
-## Perintah Lain
+```
+http://localhost:5173
+```
+
+## Available Commands
 
 ```bash
-# Menjalankan pemeriksaan lint
+# Run ESLint
 npm run lint
 
-# Membuat build untuk production
+# Build the project for production
 npm run build
 
-# Menjalankan preview dari hasil build
+# Preview the production build
 npm run preview
 ```
