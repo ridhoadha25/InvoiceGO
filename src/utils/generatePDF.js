@@ -11,14 +11,49 @@ export const generatePDF = async (elementId) => {
 
   try {
     await document.fonts?.ready;
+    await Promise.all(
+      [...document.images]
+        .filter((image) => !image.complete)
+        .map((image) => new Promise((resolve) => {
+          image.addEventListener("load", resolve, { once: true });
+          image.addEventListener("error", resolve, { once: true });
+        }))
+    );
 
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
       backgroundColor: "#ffffff",
       scrollX: 0,
-      scrollY: -window.scrollY,
+      scrollY: 0,
+      width: 794,
+      windowWidth: 794,
+      windowHeight: 1123,
+      imageTimeout: 0,
       onclone: (clonedDocument) => {
+        const clonedElement = clonedDocument.getElementById(elementId);
+        if (!clonedElement) return;
+
+        // Preview uses transform: scale() for the screen; PDF must use A4 pixels.
+        let parent = clonedElement.parentElement;
+        while (parent && parent !== clonedDocument.body) {
+          parent.style.transform = "none";
+          parent.style.overflow = "visible";
+          parent.style.height = "auto";
+          parent = parent.parentElement;
+        }
+
+        clonedElement.style.width = "794px";
+        clonedElement.style.minHeight = "1123px";
+        clonedElement.style.height = "auto";
+        clonedElement.style.margin = "0";
+        clonedElement.style.transform = "none";
+        clonedElement.style.boxSizing = "border-box";
+        clonedElement.querySelectorAll("*").forEach((child) => {
+          child.style.animation = "none";
+          child.style.transition = "none";
+        });
+
         // Tailwind v4 emits oklch colors, which html2canvas 1.x cannot parse.
         const colorFallbacks = {
           background: {
