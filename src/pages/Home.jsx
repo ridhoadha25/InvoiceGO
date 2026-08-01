@@ -6,6 +6,7 @@ import {
   FaArrowRight,
   FaPrint,
   FaRegListAlt,
+  FaReceipt,
 } from "react-icons/fa";
 
 export default function Home() {
@@ -77,15 +78,30 @@ export default function Home() {
             <div className="absolute inset-0 -m-6 border-2 border-dashed border-slate-200 -z-10 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:24px_24px]"></div>
             
             <div className="bg-white p-2 border-2 border-slate-900 shadow-[8px_8px_0px_#0F172A] transform rotate-1 hover:rotate-0 transition-transform duration-300">
-              <div className="border border-slate-200">
-                {/* 
-                  Ganti URL gambar di bawah ini dengan screenshot aplikasi web Anda
-                */}
-                <img
-                  src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Tampilan Aplikasi InvoiceGo"
-                  className="w-full h-auto object-cover grayscale-[20%] contrast-125"
-                />
+              <div className="invoice-hero-art border border-slate-200" role="img" aria-label="Ilustrasi invoice digital InvoiceGo">
+                <div className="invoice-sheet">
+                  <div className="invoice-sheet-header">
+                    <FaReceipt className="invoice-receipt-icon" />
+                    <span>INVOICEGO.</span>
+                    <b>01</b>
+                  </div>
+                  <div className="invoice-rule invoice-rule-wide"></div>
+                  <div className="invoice-client-line">
+                    <span>TAGIHAN DIGITAL</span>
+                    <strong>SIAP</strong>
+                  </div>
+                  <div className="invoice-lines" aria-hidden="true">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </div>
+                  <div className="invoice-total-line">
+                    <span>TOTAL</span>
+                    <strong>Rp 2.500K</strong>
+                  </div>
+                  <div className="invoice-stamp">TERBIT</div>
+                </div>
               </div>
             </div>
           </div>
@@ -98,8 +114,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row divide-y-2 md:divide-y-0 md:divide-x-2 divide-slate-900">
           <div className="flex-1 p-8 md:p-12 flex items-center justify-between hover:bg-slate-50 transition-colors">
             <div>
-              <p className="text-slate-500 font-mono text-sm uppercase mb-1">Total Invoice Dibuat</p>
-              <h2 className="text-4xl font-black text-slate-900">10,482+</h2>
+              <p className="text-slate-500 font-mono text-sm uppercase mb-1">Waktu Pembuatan</p>
+              <h2 className="text-4xl font-black text-slate-900">≤ 30 DETIK</h2>
             </div>
             <FaRegListAlt className="text-4xl text-slate-300" />
           </div>
